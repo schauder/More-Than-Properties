@@ -5,8 +5,8 @@ import Property._
 case class Person(fristname : String, lastname : String)
 
 class PersonEditor extends PropertyOwner {
-    val firstname = Property("alfred")
-    val lastname : Property[String] = "müller"
+    val firstname : Property[String] = ""
+    val lastname : Property[String] = ""
     // in a real project you would 
     // access the database or a service layer 
     // in order to save your object

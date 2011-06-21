@@ -11,44 +11,64 @@ object PersonClient {
         show(createPersonPanel(p))
     }
 
+    private def addToLabelColumn(
+        panel : JPanel,
+        component : JComponent,
+        row : Int) {
+        val c = new GridBagConstraints()
+        c.gridx = 0
+        c.gridy = row
+        c.weightx = 0
+        c.fill = 0
+        panel.add(component, c)
+    }
+
+    private def addToComponentColumn(
+        panel : JPanel,
+        component : JComponent,
+        row : Int) {
+        val c = new GridBagConstraints()
+        c.gridx = 1
+        c.gridy = row
+        c.weightx = 1
+        c.fill = 1
+        panel.add(component, c)
+    }
+
+    private def addButton(
+        panel : JPanel,
+        component : JButton,
+        row : Int) {
+        val c = new GridBagConstraints()
+
+        c.weightx = 1
+        c.gridx = 1
+        c.gridy = row
+        c.fill = 0
+        c.anchor = GridBagConstraints.SOUTHEAST
+        panel.add(component, c)
+    }
+
     private def createPersonPanel(p : PersonEditor) = {
         val panel = new JPanel()
         val layout = new GridBagLayout()
-        val c = new GridBagConstraints()
-        c.gridx = 0
-        c.gridy = 0
-
         panel.setLayout(layout)
 
-        c.fill = 0
-        panel.add(new JLabel("firstname"), c)
+        addToLabelColumn(panel, new JLabel("firstname"), 0)
 
-        c.fill = 1
-        c.gridx += 1
-        c.weightx = 1
         val firstnameTF = new JTextField()
-        panel.add(firstnameTF, c)
         Binder.bind(p.firstname, firstnameTF)
+        addToComponentColumn(panel, firstnameTF, 0)
 
-        c.fill = 0
-        c.weightx = 0
-        c.gridx = 0
-        c.gridy += 1
+        addToLabelColumn(panel, new JLabel("lastname"), 1)
 
-        panel.add(new JLabel("lastname"), c)
-        c.fill = 1
-
-        c.gridx += 1
         val lastnameTF = new JTextField()
         Binder.bind(p.lastname, lastnameTF)
-        panel.add(lastnameTF, c)
-        c.fill = 0
-        c.weightx = 1
-        c.gridy += 1
-        c.anchor = GridBagConstraints.SOUTHEAST
+        addToComponentColumn(panel, lastnameTF, 1)
+
         val button = new JButton("save")
         Binder.bind(p.save, button)
-        panel.add(button, c)
+        addButton(panel, button, 2)
         panel
     }
 
