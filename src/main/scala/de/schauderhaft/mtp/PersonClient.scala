@@ -11,65 +11,73 @@ object PersonClient {
         show(createPersonPanel(p))
     }
 
-    private def addToLabelColumn(
-        panel : JPanel,
-        component : JComponent,
-        row : Int) {
-        val c = new GridBagConstraints()
-        c.gridx = 0
-        c.gridy = row
-        c.weightx = 0
-        c.fill = 0
-        panel.add(component, c)
-    }
-
-    private def addToComponentColumn(
-        panel : JPanel,
-        component : JComponent,
-        row : Int) {
-        val c = new GridBagConstraints()
-        c.gridx = 1
-        c.gridy = row
-        c.weightx = 1
-        c.fill = 1
-        panel.add(component, c)
-    }
-
-    private def addButton(
-        panel : JPanel,
-        component : JButton,
-        row : Int) {
-        val c = new GridBagConstraints()
-
-        c.weightx = 1
-        c.gridx = 1
-        c.gridy = row
-        c.fill = 0
-        c.anchor = GridBagConstraints.SOUTHEAST
-        panel.add(component, c)
-    }
-
-    private def createPersonPanel(p : PersonEditor) = {
+    case class PanelBuilder() {
         val panel = new JPanel()
         val layout = new GridBagLayout()
         panel.setLayout(layout)
 
-        addToLabelColumn(panel, new JLabel("firstname"), 0)
+        def add(components : (JLabel, JComponent), row : Int) {
+            addToLabelColumn(components._1, row)
+            addToComponentColumn(components._2, row)
+        }
 
-        val firstnameTF = new JTextField()
-        Binder.bind(p.firstname, firstnameTF)
-        addToComponentColumn(panel, firstnameTF, 0)
+        def add(
+            component : JButton,
+            row : Int) {
+            val c = new GridBagConstraints()
 
-        addToLabelColumn(panel, new JLabel("lastname"), 1)
+            c.weightx = 1
+            c.gridx = 1
+            c.gridy = row
+            c.fill = 0
+            c.anchor = GridBagConstraints.SOUTHEAST
+            panel.add(component, c)
+        }
 
-        val lastnameTF = new JTextField()
-        Binder.bind(p.lastname, lastnameTF)
-        addToComponentColumn(panel, lastnameTF, 1)
+        private def addToLabelColumn(
+            component : JComponent,
+            row : Int) {
+            val c = new GridBagConstraints()
+            c.gridx = 0
+            c.gridy = row
+            c.weightx = 0
+            c.fill = 0
+            panel.add(component, c)
+        }
 
+        private def addToComponentColumn(
+            component : JComponent,
+            row : Int) {
+            val c = new GridBagConstraints()
+            c.gridx = 1
+            c.gridy = row
+            c.weightx = 1
+            c.fill = 1
+            panel.add(component, c)
+        }
+
+    }
+
+    private def create(name : String, property : Property[String]) : (JLabel, JComponent) = {
+        val textField = new JTextField()
+        Binder.bind(property, textField)
+        (new JLabel(name), textField)
+    }
+
+    private def create(name : String, action : => Unit) = {
         val button = new JButton("save")
-        Binder.bind(p.save, button)
-        addButton(panel, button, 2)
-        panel
+        Binder.bind(action, button)
+        button
+    }
+
+    private def createPersonPanel(p : PersonEditor) = {
+        val builder = PanelBuilder()
+
+        builder.add(create("firstname", p.firstname), 0)
+        builder.add(create("lastname", p.lastname), 1)
+        builder.add(create("save", p.save), 2)
+
+        builder.panel
     }
 
     private def show(panel : JPanel) {
