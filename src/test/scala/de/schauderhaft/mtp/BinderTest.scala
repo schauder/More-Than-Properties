@@ -55,7 +55,43 @@ class BinderTest extends FunSuite with ShouldMatchers {
         property() should be("23")
     }
 
-    test("when the property throws exceptions the binding is not harmed") { pending }
+    test("changing the textField sets the property to the new value (special case -> empty textfield") {
+        val (property, textField) = setup("123")
+        Binder.bind(property, textField)
+
+        textField.setText("123")
+        textField.setText("")
+
+        property() should be("")
+    }
+
+    test("when the property throws exceptions the binding is not harmed") {
+        class FailingProperty[T](val init : T) extends Property[T](init) {
+            override def :=(value : T) = {
+                if (value == "42") throw new IllegalArgumentException("fake exception")
+                else super.:=(value)
+            }
+        }
+
+        val property = new FailingProperty("start")
+        property() should be("start")
+        val textField = new JTextField()
+        Binder.bind(property, textField)
+        property() should be("start")
+
+        val iae = intercept[IllegalArgumentException] {
+            textField.setText("42")
+        }
+        iae.getMessage should be("fake exception")
+        // although I'd like to it looks like we can't ensure this, since a change to the 
+        // value of a textfield triggers multiple events, the first being a 'remove everything'
+        // and there isn't any information available, that this is part of a series of events
+        //        property() should be("start")
+
+        textField.setText("zwölf")
+        property() should be("zwölf")
+    }
+
     test("when the textfield throws exceptions the binding is not harmed") { pending }
 
     test("binding a method to a button invokes the bound method") {
