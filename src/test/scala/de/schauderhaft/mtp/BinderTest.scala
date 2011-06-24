@@ -92,8 +92,6 @@ class BinderTest extends FunSuite with ShouldMatchers {
         property() should be("zwölf")
     }
 
-    test("when the textfield throws exceptions the binding is not harmed") { pending }
-
     test("binding a method to a button invokes the bound method") {
         var invoked = false
         val button = new JButton()
