@@ -28,6 +28,12 @@ object Property {
     implicit def toT[T](p : Property[T]) : T = p()
 }
 
+trait Validation {
+    protected def validate : List[String] = List()
+    val valid = validate.isEmpty
+    val validationMessages = validate
+}
+
 trait PropertyOwner {
     implicit val THE_OWNER = this
 }
