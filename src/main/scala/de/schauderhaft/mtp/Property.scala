@@ -27,18 +27,3 @@ object Property {
 
     implicit def toT[T](p : Property[T]) : T = p()
 }
-
-trait Validation {
-    self : Property[String] =>
-    import Property._
-
-    val valid : Property[Boolean] = Property(validate.isEmpty)
-    val validationMessages : Property[List[String]] = validate
-
-    protected def validate : List[String] = List()
-
-    self.registerListener(value => {
-        validationMessages := validate
-        valid := validationMessages.isEmpty
-    })
-}
