@@ -22,18 +22,23 @@ class Property[T](var value : T) {
 }
 
 object Property {
-    implicit def apply[T](t : T)(implicit owner : PropertyOwner) : Property[T] =
+    implicit def apply[T](t : T) : Property[T] =
         new Property(t : T)
 
     implicit def toT[T](p : Property[T]) : T = p()
 }
 
 trait Validation {
-    protected def validate : List[String] = List()
-    val valid = validate.isEmpty
-    val validationMessages = validate
-}
+    self : Property[String] =>
+    import Property._
 
-trait PropertyOwner {
-    implicit val THE_OWNER = this
+    val valid : Property[Boolean] = Property(validate.isEmpty)
+    val validationMessages : Property[List[String]] = validate
+
+    protected def validate : List[String] = List()
+
+    self.registerListener(value => {
+        validationMessages := validate
+        valid := validationMessages.isEmpty
+    })
 }

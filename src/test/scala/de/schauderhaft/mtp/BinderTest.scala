@@ -10,8 +10,7 @@ import org.scalatest.junit._
 class BinderTest extends FunSuite with ShouldMatchers {
 
     def setup(initValue : String) = {
-        val owner = new AnyRef with PropertyOwner
-        (Property(initValue)(owner), new JTextField())
+        (Property(initValue), new JTextField())
     }
 
     test("binding a property to a textfield sets the textfield") {
