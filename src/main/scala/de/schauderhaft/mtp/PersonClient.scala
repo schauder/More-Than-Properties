@@ -75,7 +75,8 @@ object PersonClient {
 
         builder.add(create("firstname", p.firstname), 0)
         builder.add(create("lastname", p.lastname), 1)
-        builder.add(create("save", p.save), 2)
+        //        builder.add(create("age", p.age), 2)
+        builder.add(create("save", p.save), 3)
 
         builder.panel
     }

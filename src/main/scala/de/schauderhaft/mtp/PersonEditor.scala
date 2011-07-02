@@ -5,8 +5,10 @@ import Property._
 case class Person(fristname : String, lastname : String)
 
 class PersonEditor {
-    val firstname : Property[String] = Property("")
-    val lastname : Property[String] = Property("")
+    class Name(value : String) extends Property(value) with Length { min = 3; max = 20 }
+    val firstname = new Name("")
+    val lastname = new Name("")
+    val age = new Property(20) with Size { min = 10; max = 110 }
     // in a real project you would 
     // access the database or a service layer 
     // in order to save your object

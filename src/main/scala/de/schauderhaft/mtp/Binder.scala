@@ -7,7 +7,14 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
 object Binder {
-    def bind(p : Property[String], textField : JTextField) {
+    def bind[T : Manifest](p : Property[T], textField : JTextField) {
+        println(Manifest.classType(classOf[Int]).erasure)
+        if (Manifest.classType(classOf[String]) == manifest)
+            bindString(p.asInstanceOf[Property[String]], textField)
+        else
+            bindString(wrapProperty(p.asInstanceOf[Property[Int]]), textField)
+    }
+    private def bindString(p : Property[String], textField : JTextField) {
         var locked = false
 
         initTextField
@@ -39,5 +46,22 @@ object Binder {
 
     def bind(action : => Unit, button : JButton) {
         button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action } })
+    }
+    def wrapProperty(p : Property[Int]) : Property[String] = {
+        val wrapper = new Property(p.value.toString)
+        p.registerListener(value => {
+            println("toWrapper")
+            wrapper := value.toString
+        })
+        wrapper.registerListener((value : String) => {
+            try {
+                println("fromWrapper")
+                val converted : Int = value.toInt
+                p := converted
+            } catch {
+                case e => println(e)
+            }
+        })
+        wrapper
     }
 }

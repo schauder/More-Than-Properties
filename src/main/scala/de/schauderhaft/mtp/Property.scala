@@ -19,11 +19,17 @@ class Property[T](var value : T) {
     private def fireEvent {
         listeners.foreach(_(value))
     }
+
+    override def toString() : String = "Property[" + value + "]"
 }
 
 object Property {
-    implicit def apply[T](t : T) : Property[T] =
+    implicit def apply[T](t : T) : Property[T] = {
+        if (t.isInstanceOf[Property[_]]) {
+            new Throwable().printStackTrace()
+        }
         new Property(t : T)
+    }
 
     implicit def toT[T](p : Property[T]) : T = p()
 }
