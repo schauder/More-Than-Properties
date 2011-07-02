@@ -80,8 +80,10 @@ object PersonClient {
         val textField = new JTextField()
         Binder.bind(property, textField)
 
-        val validationLabel = new JLabel("x");
-        //        Binder.bindValidation(property, validationLabel)
+        val validationLabel = property match {
+            case v : Validation[_] => val l = new JLabel("x"); Binder.bindValidation(v, l); l
+            case _                 => new JLabel()
+        }
         (new JLabel(name), validationLabel, textField)
     }
 

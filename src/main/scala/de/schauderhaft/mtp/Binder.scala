@@ -47,6 +47,12 @@ object Binder {
     def bind(action : => Unit, button : JButton) {
         button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action } })
     }
+
+    def bindValidation(validation : Validation[_], component : JComponent) {
+        component.setVisible(!validation.valid)
+        validation.valid.registerListener(valid => component.setVisible(!valid))
+    }
+
     def wrapProperty(p : Property[Int]) : Property[String] = {
         val wrapper = new Property(p.value.toString)
         p.registerListener(value => {
