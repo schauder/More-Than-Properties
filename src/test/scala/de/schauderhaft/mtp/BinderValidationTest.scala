@@ -9,11 +9,12 @@ import org.scalatest.junit._
 @RunWith(classOf[JUnitRunner])
 class BinderValidationTest extends FunSuite with ShouldMatchers {
 
+    val validationText = "validation failed"
     def setup(initValue : Boolean) =
         (new Property(initValue) with Validation[Boolean] {
             override def validate = {
                 if (value) List()
-                else List("validation failed")
+                else List(validationText)
             }
         }, new JLabel())
 
