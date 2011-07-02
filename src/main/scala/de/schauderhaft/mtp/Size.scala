@@ -10,7 +10,7 @@ trait Size extends Validation[Int] {
 
     def validateSize = validateMax ::: validateMin
 
-    def validateMin = if (value == null || value >= min) List() else List("Must not be smaller than " + min)
+    def validateMin = if (value >= min) List() else List("Must not be smaller than " + min)
 
     def validateMax = if (value <= max) List() else List("Must not be larger than " + max)
 }
