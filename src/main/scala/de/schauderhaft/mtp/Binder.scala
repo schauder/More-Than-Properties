@@ -8,7 +8,6 @@ import java.awt.event.ActionListener
 
 object Binder {
     def bind[T : Manifest](p : Property[T], textField : JTextField) {
-        println(Manifest.classType(classOf[Int]).erasure)
         if (Manifest.classType(classOf[String]) == manifest)
             bindString(p.asInstanceOf[Property[String]], textField)
         else
@@ -51,16 +50,13 @@ object Binder {
     def wrapProperty(p : Property[Int]) : Property[String] = {
         val wrapper = new Property(p.value.toString)
         p.registerListener(value => {
-            println("toWrapper")
             wrapper := value.toString
         })
         wrapper.registerListener((value : String) => {
             try {
-                println("fromWrapper")
-                val converted : Int = value.toInt
-                p := converted
+                p := value.toInt
             } catch {
-                case e => println(e)
+                case e =>
             }
         })
         wrapper

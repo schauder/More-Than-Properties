@@ -47,4 +47,13 @@ class BinderIntTest extends FunSuite with ShouldMatchers {
         property() should be(11)
     }
 
+    test("changing the textfield to a not parsable value does not change the bound property") {
+        val (property, textField) = setup(42)
+        Binder.bind(property, textField)
+
+        textField.setText("zwölf")
+
+        property() should be(42)
+    }
+
 }
