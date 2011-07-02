@@ -58,7 +58,7 @@ object PersonClient {
 
     }
 
-    private def create(name : String, property : Property[String]) : (JLabel, JComponent) = {
+    private def create[T : Manifest](name : String, property : Property[T]) : (JLabel, JComponent) = {
         val textField = new JTextField()
         Binder.bind(property, textField)
         (new JLabel(name), textField)
@@ -75,7 +75,7 @@ object PersonClient {
 
         builder.add(create("firstname", p.firstname), 0)
         builder.add(create("lastname", p.lastname), 1)
-        //        builder.add(create("age", p.age), 2)
+        builder.add(create("age", p.age), 2)
         builder.add(create("save", p.save), 3)
 
         builder.panel

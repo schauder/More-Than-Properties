@@ -14,6 +14,7 @@ object Binder {
         else
             bindString(wrapProperty(p.asInstanceOf[Property[Int]]), textField)
     }
+
     private def bindString(p : Property[String], textField : JTextField) {
         var locked = false
 
