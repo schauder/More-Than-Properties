@@ -12,23 +12,31 @@ object PersonClient {
     }
 
     case class PanelBuilder() {
+        val LABEL_GRID_X = 0
+        val VALIDATION_GRID_X = 1
+        val COMPONENT_GRID_X = 2
+        val BUTTON_GRID_X = 2
+
         val panel = new JPanel()
         val layout = new GridBagLayout()
         panel.setLayout(layout)
 
-        def add(components : (JLabel, JComponent), row : Int) {
-            addToLabelColumn(components._1, row)
-            addToComponentColumn(components._2, row)
+        var currentRow = 0
+
+        def add(components : (JLabel, JLabel, JComponent)) {
+            addToLabelColumn(components._1, currentRow)
+            addToValidationColumn(components._2)
+            addToComponentColumn(components._3, currentRow)
+            currentRow += 1
         }
 
         def add(
-            component : JButton,
-            row : Int) {
+            component : JButton) {
             val c = new GridBagConstraints()
 
+            c.gridx = BUTTON_GRID_X
+            c.gridy = currentRow
             c.weightx = 1
-            c.gridx = 1
-            c.gridy = row
             c.fill = 0
             c.anchor = GridBagConstraints.SOUTHEAST
             panel.add(component, c)
@@ -38,8 +46,18 @@ object PersonClient {
             component : JComponent,
             row : Int) {
             val c = new GridBagConstraints()
-            c.gridx = 0
+            c.gridx = LABEL_GRID_X
             c.gridy = row
+            c.weightx = 0
+            c.fill = 0
+            c.anchor = GridBagConstraints.EAST
+            panel.add(component, c)
+        }
+
+        private def addToValidationColumn(component : JComponent) {
+            val c = new GridBagConstraints()
+            c.gridx = VALIDATION_GRID_X
+            c.gridy = currentRow
             c.weightx = 0
             c.fill = 0
             panel.add(component, c)
@@ -49,7 +67,7 @@ object PersonClient {
             component : JComponent,
             row : Int) {
             val c = new GridBagConstraints()
-            c.gridx = 1
+            c.gridx = COMPONENT_GRID_X
             c.gridy = row
             c.weightx = 1
             c.fill = 1
@@ -58,10 +76,13 @@ object PersonClient {
 
     }
 
-    private def create[T : Manifest](name : String, property : Property[T]) : (JLabel, JComponent) = {
+    private def create[T : Manifest](name : String, property : Property[T]) : (JLabel, JLabel, JComponent) = {
         val textField = new JTextField()
         Binder.bind(property, textField)
-        (new JLabel(name), textField)
+
+        val validationLabel = new JLabel("x");
+        //        Binder.bindValidation(property, validationLabel)
+        (new JLabel(name), validationLabel, textField)
     }
 
     private def create(name : String, action : => Unit) = {
@@ -73,10 +94,10 @@ object PersonClient {
     private def createPersonPanel(p : PersonEditor) = {
         val builder = PanelBuilder()
 
-        builder.add(create("firstname", p.firstname), 0)
-        builder.add(create("lastname", p.lastname), 1)
-        builder.add(create("age", p.age), 2)
-        builder.add(create("save", p.save), 3)
+        builder.add(create("firstname", p.firstname))
+        builder.add(create("lastname", p.lastname))
+        builder.add(create("age", p.age))
+        builder.add(create("save", p.save))
 
         builder.panel
     }
