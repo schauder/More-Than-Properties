@@ -9,9 +9,22 @@ import org.scalatest.junit._
 class PropertyTest extends FunSuite with ShouldMatchers {
 
     test("property returns initial Value") {
-        implicit val owner = new AnyRef()
         val property = new Property("testValue")
         property() should be("testValue")
+    }
+
+    test("toString of a property with a value 12 returns 'Property[12]'") {
+        new Property(12).toString should be("Property[12]")
+    }
+
+    test("property() returns the value set with := ") {
+        val property = new Property("testValue")
+        property := "otherValue"
+        property() should be("otherValue")
+    }
+
+    test("toString of a property with a value 'zwölf' returns 'Property[zwölf]'") {
+        new Property("zwölf").toString should be("Property[zwölf]")
     }
 
 }
