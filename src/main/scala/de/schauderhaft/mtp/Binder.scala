@@ -50,7 +50,17 @@ object Binder {
 
     def bindValidation(validation : Validation[_], component : JComponent) {
         component.setVisible(!validation.valid)
+        component.setToolTipText(validation.validationMessages() match {
+            case x :: xs => (x :: xs).mkString("\n")
+            case _       => null
+        })
         validation.valid.registerListener(valid => component.setVisible(!valid))
+        validation.validationMessages.registerListener(messages => {
+            component.setToolTipText(messages match {
+                case x :: xs => (x :: xs).mkString("\n")
+                case _       => null
+            })
+        })
     }
 
     def wrapProperty(p : Property[Int]) : Property[String] = {
