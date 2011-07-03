@@ -55,20 +55,27 @@ class BinderValidationTest extends FunSuite with ShouldMatchers {
     test("after binding an invalid Property the tooltip should contain the validationText") {
         val (property, label) = setup(false)
         Binder.bindValidation(property, label)
-        label.getToolTipText should be(validationText)
+        label.getToolTipText should include(validationText)
+    }
+
+    test("after binding an invalid Property the tooltip should be enclosed in html tags") {
+        val (property, label) = setup(false)
+        Binder.bindValidation(property, label)
+        label.getToolTipText should startWith("<html>")
+        label.getToolTipText should endWith("</html>")
     }
 
     test("after binding an invalid Property the tooltip should contain all validation messages") {
         val (property, label) = setup(false, List(validationText, otherValidation))
         Binder.bindValidation(property, label)
-        label.getToolTipText.contains(validationText) should be(true)
-        label.getToolTipText.contains(otherValidation) should be(true)
+        label.getToolTipText should include(validationText)
+        label.getToolTipText should include(otherValidation)
     }
 
     test("after binding an invalid Property the tooltip should contain a linebreak") {
         val (property, label) = setup(false, List(validationText, otherValidation))
         Binder.bindValidation(property, label)
-        label.getToolTipText.contains("\n") should be(true)
+        label.getToolTipText should include("<br/>")
     }
 
     test("when a property becomes valid the tooltip becomes empty") {
@@ -82,8 +89,8 @@ class BinderValidationTest extends FunSuite with ShouldMatchers {
         val (property, label) = setup(true, List(validationText, otherValidation))
         Binder.bindValidation(property, label)
         property := false
-        label.getToolTipText.contains(validationText) should be(true)
-        label.getToolTipText.contains(otherValidation) should be(true)
-        label.getToolTipText.contains("\n") should be(true)
+        label.getToolTipText should include(validationText)
+        label.getToolTipText should include(otherValidation)
+        label.getToolTipText should include("<br/>")
     }
 }

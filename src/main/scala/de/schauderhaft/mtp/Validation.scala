@@ -13,4 +13,5 @@ trait Validation[T] {
         validationMessages := validate
         valid := validationMessages.isEmpty
     })
+
 }

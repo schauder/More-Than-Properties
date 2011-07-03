@@ -55,9 +55,12 @@ object Binder {
 
         def setToolTip(messages : List[String]) {
             component.setToolTipText(
-                messages match {
-                    case x :: xs => (x :: xs).mkString("\n")
-                    case _       => null
+                {
+                    messages match {
+                        case x :: xs =>
+                            "<html>" + (x :: xs).mkString("<br/>") + "</html>"
+                        case _ => null
+                    }
                 })
         }
 
