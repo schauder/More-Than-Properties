@@ -1,4 +1,5 @@
 package de.schauderhaft.mtp
+import com.jgoodies.forms.layout._
 import javax.swing._
 import java.awt._
 import java.awt.event.ActionEvent
@@ -12,17 +13,21 @@ object PersonClient {
     }
 
     case class PanelBuilder() {
-        val LABEL_GRID_X = 0
-        val VALIDATION_GRID_X = 1
-        val COMPONENT_GRID_X = 2
-        val BUTTON_GRID_X = 2
+        val LABEL_X = 0
+        val VALIDATION_X = 1
+        val COMPONENT_X = 2
+        val BUTTON_X = 2
 
         val panel = new JPanel()
-        val layout = new GridBagLayout()
+        val layout = new FormLayout(
+            "min, 2dlu, 4dlu, 0dlu, pref:grow",
+            "pref:grow, pref, 2dlu, pref, 2dlu, pref, 2dlu, pref:grow")
         panel.setLayout(layout)
 
         var currentRow = 0
 
+        private def gridx(logic : Int) = 2 * logic + 1
+        private def gridy(logic : Int) = 2 * logic + 2
         def add(components : (JLabel, JLabel, JComponent)) {
             addToLabelColumn(components._1, currentRow)
             addToValidationColumn(components._2)
@@ -32,46 +37,27 @@ object PersonClient {
 
         def add(
             component : JButton) {
-            val c = new GridBagConstraints()
-
-            c.gridx = BUTTON_GRID_X
-            c.gridy = currentRow
-            c.weightx = 1
-            c.fill = 0
-            c.anchor = GridBagConstraints.SOUTHEAST
-            panel.add(component, c)
+            val c = new CellConstraints()
+            panel.add(component, c.xy(gridx(BUTTON_X), gridy(currentRow), "right, top"))
         }
 
         private def addToLabelColumn(
             component : JComponent,
             row : Int) {
-            val c = new GridBagConstraints()
-            c.gridx = LABEL_GRID_X
-            c.gridy = row
-            c.weightx = 0
-            c.fill = 0
-            c.anchor = GridBagConstraints.EAST
-            panel.add(component, c)
+            val c = new CellConstraints()
+            panel.add(component, c.xy(gridx(LABEL_X), gridy(row), "right, default"))
         }
 
         private def addToValidationColumn(component : JComponent) {
-            val c = new GridBagConstraints()
-            c.gridx = VALIDATION_GRID_X
-            c.gridy = currentRow
-            c.weightx = 0
-            c.fill = 0
-            panel.add(component, c)
+            val c = new CellConstraints()
+            panel.add(component, c.xy(gridx(VALIDATION_X), gridy(currentRow)))
         }
 
         private def addToComponentColumn(
             component : JComponent,
             row : Int) {
-            val c = new GridBagConstraints()
-            c.gridx = COMPONENT_GRID_X
-            c.gridy = row
-            c.weightx = 1
-            c.fill = 1
-            panel.add(component, c)
+            val c = new CellConstraints()
+            panel.add(component, c.xy(gridx(COMPONENT_X), gridy(row)))
         }
 
     }
@@ -81,10 +67,17 @@ object PersonClient {
         Binder.bind(property, textField)
 
         val validationLabel = property match {
-            case v : Validation[_] => val l = new JLabel("x"); Binder.bindValidation(v, l); l
+            case v : Validation[_] => createValidationLabel(v);
             case _                 => new JLabel()
         }
         (new JLabel(name), validationLabel, textField)
+
+    }
+
+    private def createValidationLabel(v : Validation[_]) : JLabel = {
+        val l = new JLabel("x")
+        Binder.bindValidation(v, l);
+        l
     }
 
     private def create(name : String, action : => Unit) = {
