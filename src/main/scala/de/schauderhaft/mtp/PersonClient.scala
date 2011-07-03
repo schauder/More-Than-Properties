@@ -76,6 +76,7 @@ object PersonClient {
 
     private def createValidationLabel(v : Validation[_]) : JLabel = {
         val l = new JLabel("x")
+        l.setForeground(Color.RED)
         Binder.bindValidation(v, l);
         l
     }
