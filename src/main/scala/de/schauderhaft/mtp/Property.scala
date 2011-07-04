@@ -1,6 +1,8 @@
 package de.schauderhaft.mtp
 
-class Property[T](var value : T) {
+class Property[T](var value : T, val aggregator : Aggregator = NullAggregator) {
+    aggregator.register(this)
+
     var listeners = List[T => Unit]()
 
     def apply() = value
@@ -32,4 +34,8 @@ object Property {
     }
 
     implicit def toT[T](p : Property[T]) : T = p()
+}
+
+object NullAggregator extends Aggregator {
+    override def register(p : Property[_]) {}
 }
