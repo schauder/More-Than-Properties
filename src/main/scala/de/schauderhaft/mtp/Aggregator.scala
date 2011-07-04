@@ -1,5 +1,6 @@
 package de.schauderhaft.mtp
 
+import validation._
 /**
  * Aggregates the collective properties of the contained/registered properties
  */

@@ -1,5 +1,6 @@
 package de.schauderhaft.mtp
 
+import validation._
 import javax.swing._
 import javax.swing.event.DocumentListener
 import javax.swing.event.DocumentEvent

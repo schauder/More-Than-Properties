@@ -1,4 +1,6 @@
 package de.schauderhaft.mtp
+
+import validation._
 import com.jgoodies.forms.layout._
 import javax.swing._
 import java.awt._

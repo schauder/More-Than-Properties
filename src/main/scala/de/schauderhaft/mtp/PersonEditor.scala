@@ -1,5 +1,6 @@
 package de.schauderhaft.mtp
 
+import validation._
 import Property._
 
 case class Person(fristname : String, lastname : String, age : Int)

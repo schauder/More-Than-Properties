@@ -1,4 +1,7 @@
 package de.schauderhaft.mtp
+
+import validation._
+
 import javax.swing._
 
 import org.scalatest._
