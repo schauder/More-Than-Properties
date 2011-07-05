@@ -1,25 +1,15 @@
 package de.schauderhaft.mtp
 
-class Property[T](var value : T, val aggregator : Aggregator = NullAggregator) {
+class Property[T](var value : T, val aggregator : Aggregator = NullAggregator) extends Observable[T] {
     aggregator.register(this)
-
-    var listeners = List[T => Unit]()
 
     def apply() = value
 
     def :=(aValue : T) {
         if (value != aValue) {
             value = aValue
-            fireEvent
+            fireEvent(value)
         }
-    }
-
-    def registerListener(l : T => Unit) {
-        listeners = l :: listeners
-    }
-
-    private def fireEvent {
-        listeners.foreach(_(value))
     }
 
     override def toString() : String = "Property[" + value + "]"
