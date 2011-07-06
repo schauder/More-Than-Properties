@@ -27,7 +27,6 @@ class AggregatorTest extends FunSuite with ShouldMatchers {
         }
 
         aggregate.prop := "bb"
-        println(aggregate.prop.valid)
         aggregate.valid() should be(true)
     }
 
@@ -39,10 +38,10 @@ class AggregatorTest extends FunSuite with ShouldMatchers {
 
         var called = false
 
-        //aggregate.valid.registerListener(_ => { called = true })
+        aggregate.valid.registerListener(_ => { called = true })
 
         aggregate.prop := "bb"
-        aggregate.valid() should be(true)
+        called should be(true)
     }
 
 }
