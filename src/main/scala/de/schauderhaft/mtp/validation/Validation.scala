@@ -2,18 +2,23 @@ package de.schauderhaft.mtp.validation
 
 import de.schauderhaft.mtp._
 
-trait Validation[T] {
-    self : Property[T] =>
+trait Valid {
+    val validationMessages : Property[List[String]]
+    val valid : Property[Boolean]
+}
+
+trait Validation[T] extends Valid {
+    self : Observable[T] =>
     import Property._
 
-    lazy val validationMessages : Property[List[String]] = validate
-    lazy val valid : Property[Boolean] = Property(validationMessages.isEmpty)
+    override lazy val validationMessages : Property[List[String]] = validate
+    override lazy val valid : Property[Boolean] = Property(validationMessages.isEmpty)
 
     protected def validate : List[String] = List()
 
     self.registerListener(value => {
         validationMessages := validate
-        valid := validationMessages.isEmpty
+        valid := validationMessages().isEmpty
     })
 
 }

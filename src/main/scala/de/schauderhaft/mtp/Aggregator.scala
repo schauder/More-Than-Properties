@@ -4,17 +4,25 @@ import validation._
 /**
  * Aggregates the collective properties of the contained/registered properties
  */
-trait Aggregator {
+trait Aggregator extends Valid {
     val aggregator : Aggregator = this
-
-    var properties = List[Property[_]]()
+    val valid = new Property(true);
+    val validationMessages = new Property(List[String]())
+    var validations = List[Validation[_]]()
 
     def register(p : Property[_]) {
-        properties = p :: properties
+        p match {
+            case v : Validation[_] => registerValidation(v)
+        }
     }
 
-    def valid() = properties.forall(_ match {
-        case v : Validation[_] => v.valid()
-        case _                 => true
-    })
+    private def registerValidation(v : Validation[_]) {
+        v.valid.registerListener(_ => updateValidation())
+        validations = v :: validations
+        updateValidation()
+    }
+
+    def updateValidation() {
+        valid := validations.forall(_.valid())
+    }
 }
