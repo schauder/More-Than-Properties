@@ -23,6 +23,7 @@ trait Aggregator extends Valid {
     }
 
     def updateValidation() {
+        validationMessages := validations.flatMap(_.validationMessages())
         valid := validations.forall(_.valid())
     }
 }

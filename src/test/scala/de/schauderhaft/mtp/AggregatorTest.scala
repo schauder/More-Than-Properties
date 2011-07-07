@@ -13,6 +13,10 @@ class AggregatorTest extends FunSuite with ShouldMatchers {
         val aggregate = new AnyRef() with Aggregator
         aggregate.valid() should be(true)
     }
+    test("an Aggregator without properties has no validation message") {
+        val aggregate = new AnyRef() with Aggregator
+        aggregate.validationMessages() should be('empty)
+    }
 
     test("an Aggregator with an invalid property is not valid") {
         val aggregate = new AnyRef() with Aggregator {
@@ -20,7 +24,19 @@ class AggregatorTest extends FunSuite with ShouldMatchers {
         }
         aggregate.valid() should be(false)
     }
-
+    test("an Aggregator with an invalid property has the validation message") {
+        val aggregate = new AnyRef() with Aggregator {
+            val notValid = new Property[String]("aaaaaaa", this) with Length { max = 3 }
+        }
+        aggregate.validationMessages().size should be(1)
+    }
+    test("an Aggregator with two invalid properties has the validation message") {
+        val aggregate = new AnyRef() with Aggregator {
+            val notValid = new Property[String]("aaaaaaa", this) with Length { max = 3 }
+            val notValidEither = new Property[String]("aaaaaaa", this) with Length { max = 3 }
+        }
+        aggregate.validationMessages().size should be(2)
+    }
     test("an Aggregator with an invalid property becomes valid when the property becomes valid") {
         val aggregate = new AnyRef() with Aggregator {
             val prop = new Property[String]("aaaaaaa", this) with Length { max = 3 }
