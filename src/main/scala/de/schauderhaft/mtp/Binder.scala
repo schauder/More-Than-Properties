@@ -51,6 +51,10 @@ object Binder {
 
     def bind(action : Action, button : JButton) {
         button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action() } })
+        action match {
+            case a : Enabled => a.enabled.registerListener(bool => button.setEnabled(bool)); button.setEnabled(a.enabled())
+            case _           =>
+        }
     }
     def bindValidation(validation : Validation[_], component : JComponent) {
 
