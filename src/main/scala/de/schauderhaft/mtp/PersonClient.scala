@@ -84,7 +84,13 @@ object PersonClient {
     }
 
     private def create(name : String, action : => Unit) = {
-        val button = new JButton("save")
+        val button = new JButton(name)
+        Binder.bind(action, button)
+        button
+    }
+
+    private def create(name : String, action : Action) = {
+        val button = new JButton(name)
         Binder.bind(action, button)
         button
     }

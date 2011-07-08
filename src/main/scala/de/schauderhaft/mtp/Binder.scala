@@ -49,6 +49,9 @@ object Binder {
         button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action } })
     }
 
+    def bind(action : Action, button : JButton) {
+        button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action() } })
+    }
     def bindValidation(validation : Validation[_], component : JComponent) {
 
         component.setVisible(!validation.valid)

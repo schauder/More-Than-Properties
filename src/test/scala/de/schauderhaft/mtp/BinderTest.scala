@@ -91,7 +91,7 @@ class BinderTest extends FunSuite with ShouldMatchers {
         property() should be("zwölf")
     }
 
-    test("binding a method to a button invokes the bound method") {
+    test("binding a method to a button and clicking the button invokes the bound bloc") {
         var invoked = false
         val button = new JButton()
         Binder.bind({ invoked = true }, button)
@@ -99,5 +99,61 @@ class BinderTest extends FunSuite with ShouldMatchers {
         button.doClick()
 
         invoked should be(true)
+    }
+
+    test("a bound button clicked twice gets executed twice") {
+        var invoked = 0
+        val button = new JButton()
+        Binder.bind({ invoked += 1 }, button)
+
+        button.doClick()
+        button.doClick()
+
+        invoked should be(2)
+    }
+
+    test("a button bound to a simple method is enabled") {
+        var invoked = false
+        val button = new JButton()
+        Binder.bind({ invoked = true }, button)
+
+        button.isEnabled should be(true)
+    }
+
+    test("binding an Action to a button and clicking the button invokes the bound block") {
+        var invoked = false
+        val button = new JButton()
+        Binder.bind(Action(invoked = true), button)
+
+        button.doClick()
+
+        invoked should be(true)
+    }
+
+    test("a button bound to a simple method with enabled has the value of the enabled Property") {
+        pending
+    }
+
+}
+
+object Experiment {
+    val func : () => Unit = { () => println("Hallo func") }
+    def one(x : => Unit) {
+        println("one before")
+        x
+    }
+
+    def two[T](x : () => Unit with T) {
+        println("two before")
+        x()
+    }
+
+    def main(args : Array[String]) {
+        one(println("hallo"))
+        two(func)
+
+        one(func()) // doesn't work as desired
+        //two({ println("hallo") }) // doesnt compile
+        two(() => println("hallo")) // works ok, but is ugly IMHO
     }
 }
