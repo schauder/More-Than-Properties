@@ -1,7 +1,6 @@
 package de.schauderhaft.mtp
 
-class Property[T](var value : T, val aggregator : Aggregator = NullAggregator) extends Observable[T] {
-    aggregator.register(this)
+class Property[T](var value : T) extends Observable[T] {
 
     def apply() = value
 
@@ -13,6 +12,12 @@ class Property[T](var value : T, val aggregator : Aggregator = NullAggregator) e
     }
 
     override def toString() : String = "Property[" + value + "]"
+
+    def @@(implicit aggregator : Aggregator) : Property[T] = {
+        aggregator.register(this)
+        this
+    }
+
 }
 
 object Property {

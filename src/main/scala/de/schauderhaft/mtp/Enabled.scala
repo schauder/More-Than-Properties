@@ -1,5 +1,5 @@
 package de.schauderhaft.mtp
 
 trait Enabled {
-    val enabled : Property[Boolean]
+    var enabled : Property[Boolean] = new Property(true)
 }

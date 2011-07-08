@@ -133,7 +133,7 @@ class BinderTest extends FunSuite with ShouldMatchers {
     test("a button bound to a Action with Enabled has the value of the enabled Property") {
         var invoked = false
 
-        val action = new Action(invoked = true) with Enabled { override val enabled = Property(false) }
+        val action = new Action(invoked = true) with Enabled { enabled = Property(false) }
 
         val button = new JButton()
         Binder.bind(action, button)

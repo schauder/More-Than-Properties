@@ -5,7 +5,7 @@ import validation._
  * Aggregates the collective properties of the contained/registered properties
  */
 trait Aggregator extends Valid {
-    val aggregator : Aggregator = this
+    implicit val aggregator : Aggregator = this
     val valid = new Property(true);
     val validationMessages = new Property(List[String]())
     var validations = List[Validation[_]]()
@@ -13,6 +13,8 @@ trait Aggregator extends Valid {
     def register(p : Property[_]) {
         p match {
             case v : Validation[_] => registerValidation(v)
+            // TODO needs test
+            case _                 =>
         }
     }
 
