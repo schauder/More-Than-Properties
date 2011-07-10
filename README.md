@@ -1,13 +1,12 @@
-moreThenProperties is an experimental approach to binding for Swing Components with Scala.
+More Then Properties (MTP) is an experimental approach to binding and validation for Swing Components with Scala.
 
-In order to benefit from the power of Scala it DOES NOT USE Java Beans getter and setter, 
-but a special Property class.
+But it goes beyond just binding to components. The idea is that you can specify the complete logic for a panel without referencing a single Swing class and without specifying a property or similar using a String or any other mechanism which basically boils down to reflection. If this is achieved you can
 
-Binding is currently only supported for Propterty[String] and Property[Int] to JTextField and for JButtons to methods. 
+* create at least a prototype GUI automatically
+* test the GUI behavior without worrying about EDT and Swing Components or ugly things like Robots
+* tweak and manipulate the GUI layout without worrying about breaking the logic, because a) in the GUI code is no more logic embedded b) you have good test coverage for it.
 
-There is also some support for input validation.
+If you are interested, continue reading in the [Wiki](https://github.com/schauder/More-Than-Properties/wiki) or dive into the Source Code. I recommend the [PersonEditor](https://github.com/schauder/More-Than-Properties/blob/master/src/main/scala/de/schauderhaft/mtp/demo/PersonEditor.scala), which is an example of what is currently possible.
 
-Further bindings might follow. And of course you can easily implement your own.
-
-There is a lot of experimentation going on in this project, which means nothin is stable.
+There is a lot of experimentation going on in this project, which means nothing is stable.
 So if you are interested in using anything just grab the source code and let me know about your experiences.
