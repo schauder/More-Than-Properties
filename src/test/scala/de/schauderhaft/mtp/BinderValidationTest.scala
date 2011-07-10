@@ -1,6 +1,7 @@
 package de.schauderhaft.mtp
 
 import validation._
+import binding._
 
 import javax.swing._
 

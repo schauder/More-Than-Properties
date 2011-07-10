@@ -1,7 +1,8 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.binding
 
-import validation._
-import javax.swing._
+import de.schauderhaft.mtp.validation._
+import de.schauderhaft.mtp._
+import javax.swing.{ Action => SwingAction, _ }
 import javax.swing.event.DocumentListener
 import javax.swing.event.DocumentEvent
 import java.awt.event.ActionEvent

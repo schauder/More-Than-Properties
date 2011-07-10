@@ -1,4 +1,7 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.binding
+
+import de.schauderhaft.mtp._
+
 import javax.swing._
 
 import org.scalatest._

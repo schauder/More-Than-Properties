@@ -1,5 +1,8 @@
-package de.schauderhaft.mtp
-import javax.swing._
+package de.schauderhaft.mtp.binding
+
+import de.schauderhaft.mtp._
+
+import javax.swing.{ Action => _, _ }
 
 import org.scalatest._
 import org.scalatest.matchers._

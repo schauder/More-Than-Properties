@@ -1,15 +1,10 @@
 package de.schauderhaft.mtp.demo
 
 import de.schauderhaft.mtp.validation._
+import de.schauderhaft.mtp.binding._
 import de.schauderhaft.mtp._
 import com.jgoodies.forms.layout._
-import javax.swing.JButton
-import javax.swing.JPanel
-import javax.swing.JLabel
-import javax.swing.JComponent
-import javax.swing.JTextField
-import javax.swing.JFrame
-import javax.swing.WindowConstants
+import javax.swing.{ Action => SwingAction, _ }
 import java.awt._
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
