@@ -1,4 +1,4 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.layout
 
 abstract class LayoutSpecification(elements : AnyRef*) {
     val width : Int

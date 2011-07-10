@@ -1,4 +1,4 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.layout
 
 import org.scalatest.FunSuite
 import org.scalatest.matchers.ShouldMatchers
