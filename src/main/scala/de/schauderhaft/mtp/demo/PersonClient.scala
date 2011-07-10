@@ -1,8 +1,15 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.demo
 
-import validation._
+import de.schauderhaft.mtp.validation._
+import de.schauderhaft.mtp._
 import com.jgoodies.forms.layout._
-import javax.swing._
+import javax.swing.JButton
+import javax.swing.JPanel
+import javax.swing.JLabel
+import javax.swing.JComponent
+import javax.swing.JTextField
+import javax.swing.JFrame
+import javax.swing.WindowConstants
 import java.awt._
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener

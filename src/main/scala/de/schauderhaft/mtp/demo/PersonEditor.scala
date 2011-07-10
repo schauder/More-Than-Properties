@@ -1,7 +1,8 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.demo
 
-import validation._
-import Property._
+import de.schauderhaft.mtp.validation._
+import de.schauderhaft.mtp.Property._
+import de.schauderhaft.mtp._
 
 case class Person(fristname : String, lastname : String, age : Int)
 
