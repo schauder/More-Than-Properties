@@ -1,4 +1,4 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.property
 
 trait Observable[T] {
     var listeners = List[T => Unit]()

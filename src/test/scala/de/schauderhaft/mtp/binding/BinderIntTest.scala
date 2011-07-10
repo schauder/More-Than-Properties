@@ -1,6 +1,6 @@
 package de.schauderhaft.mtp.binding
 
-import de.schauderhaft.mtp._
+import de.schauderhaft.mtp.property._
 
 import javax.swing._
 

@@ -1,6 +1,6 @@
 package de.schauderhaft.mtp.validation
 
-import de.schauderhaft.mtp._
+import de.schauderhaft.mtp.property._
 
 trait Size extends Validation[Int] {
     self : Property[Int] =>

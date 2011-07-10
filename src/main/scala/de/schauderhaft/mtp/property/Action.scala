@@ -1,4 +1,4 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.property
 
 class Action(act : => Unit) {
     def apply() { act }

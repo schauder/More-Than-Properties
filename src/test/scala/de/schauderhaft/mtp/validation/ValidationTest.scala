@@ -1,6 +1,6 @@
 package de.schauderhaft.mtp.validation
 
-import de.schauderhaft.mtp._
+import de.schauderhaft.mtp.property._
 
 import org.scalatest._
 import org.scalatest.matchers._

@@ -2,7 +2,7 @@ package de.schauderhaft.mtp.demo
 
 import de.schauderhaft.mtp.validation._
 import de.schauderhaft.mtp.binding._
-import de.schauderhaft.mtp._
+import de.schauderhaft.mtp.property._
 import com.jgoodies.forms.layout._
 import javax.swing.{ Action => SwingAction, _ }
 import java.awt._

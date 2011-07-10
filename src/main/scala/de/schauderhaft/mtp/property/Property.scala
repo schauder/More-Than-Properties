@@ -1,4 +1,4 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.property
 
 class Property[T](var value : T) extends Observable[T] {
 

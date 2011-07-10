@@ -1,4 +1,4 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.property
 
 class DerivedProperty[T, S](delegate : Property[S])(func : S => T) extends Observable[T] {
     private var lastValue = func(delegate())

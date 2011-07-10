@@ -1,6 +1,6 @@
-package de.schauderhaft.mtp
+package de.schauderhaft.mtp.property
 
-import validation._
+import de.schauderhaft.mtp.validation._
 import org.scalatest._
 import org.scalatest.matchers._
 import org.junit.runner.RunWith

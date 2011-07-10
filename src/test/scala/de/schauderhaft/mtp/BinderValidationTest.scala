@@ -2,6 +2,7 @@ package de.schauderhaft.mtp
 
 import validation._
 import binding._
+import property._
 
 import javax.swing._
 

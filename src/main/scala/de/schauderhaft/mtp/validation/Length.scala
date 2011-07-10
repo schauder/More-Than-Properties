@@ -1,6 +1,6 @@
 package de.schauderhaft.mtp.validation
 
-import de.schauderhaft.mtp._
+import de.schauderhaft.mtp.property._
 
 trait Length extends Validation[String] {
     self : Property[String] =>
