@@ -19,7 +19,7 @@ class BinderIntTest extends FunSuite with ShouldMatchers {
         (Property(initValue), new JTextField())
     }
 
-    test("binding a property to a textfield sets the textfield with value 23") {
+    test("binding a property with value 23 to a textfield sets the textfield to the value 23") {
         val (property, textField) = setup(23)
         Binder.bind(property, textField)
 
@@ -30,6 +30,7 @@ class BinderIntTest extends FunSuite with ShouldMatchers {
         val (property, textField) = setup(42)
         Binder.bind(property, textField)
 
+        textField.getText should be("42")
     }
 
     test("changing a bound property changes the textfield") {
@@ -58,5 +59,4 @@ class BinderIntTest extends FunSuite with ShouldMatchers {
 
         property() should be(42)
     }
-
 }

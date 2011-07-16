@@ -46,10 +46,21 @@ object Binder {
         }
     }
 
+    /**
+     * binds a block to a JButton.
+     *
+     * When the JButton gets clicked the block gets executed.
+     */
     def bind(action : => Unit, button : JButton) {
         button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action } })
     }
 
+    /**
+     * binds an Action to a JButton.
+     *
+     * When the JButton gets clicked the Action gets performed
+     * The enabled Property gets bound to the enabled Property of the JButton.
+     */
     def bind(action : Action, button : JButton) {
         button.addActionListener(new ActionListener() { def actionPerformed(e : ActionEvent) { action() } })
         action match {
@@ -57,6 +68,10 @@ object Binder {
             case _           =>
         }
     }
+
+    /**
+     * binds a Validation to a JComponent, making the JComponent visible when validation fails, and generates a tooltip from the Validation messages
+     */
     def bindValidation(validation : Validation[_], component : JComponent) {
 
         component.setVisible(!validation.valid)
