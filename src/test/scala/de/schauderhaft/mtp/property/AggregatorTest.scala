@@ -7,8 +7,9 @@ import org.scalatest.junit._
 
 @RunWith(classOf[JUnitRunner])
 class AggregatorTest extends FunSuite with ShouldMatchers {
-
-
-
-
+    test("you can call the @@ operator"){
+        class Example extends Aggregator{
+            val prop = new Property("hallo").@@
+        }
+    }
 }
