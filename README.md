@@ -7,6 +7,7 @@ But it goes beyond just binding to components. The idea is that you can specify 
 * tweak and manipulate the GUI layout without worrying about breaking the logic, because 
 
     a) in the GUI code is no more logic embedded 
+
     b) you have good test coverage for it.
 
 If you are interested, continue reading in the [Wiki](https://github.com/schauder/More-Than-Properties/wiki) or dive into the Source Code. I recommend the [PersonEditor](https://github.com/schauder/More-Than-Properties/blob/master/src/main/scala/de/schauderhaft/mtp/demo/PersonEditor.scala), which is an example of what is currently possible.
