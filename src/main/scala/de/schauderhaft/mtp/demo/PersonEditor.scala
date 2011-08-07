@@ -20,7 +20,7 @@ case class Person(fristname : String, lastname : String, age : Int)
  * thereby making their status available in an aggregated form to the PersonEditor. This is currently implemented for
  * Validation and used in the save Action which is only enabled when all (registered) properties are valid.
  */
-class PersonEditor extends Aggregator {
+class PersonEditor extends ValidAggregator {
     /**
      * A Name is a Property of type String with a minimum length of 3 and a maximum length of 20
      *
@@ -52,5 +52,5 @@ class PersonEditor extends Aggregator {
      *
      * The action (or the JButton which will represent it) will only be enabled when all properties are valid.
      */
-    val save = new Action(println(Person(firstname, lastname, age))) with Enabled { enabled = aggregator.valid }
+    val save = new Action(println(Person(firstname, lastname, age))) with Enabled { enabled = valid }
 }
