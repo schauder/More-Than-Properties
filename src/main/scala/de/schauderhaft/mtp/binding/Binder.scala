@@ -9,6 +9,11 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 
 object Binder {
+    
+    def bind[T : Manifest](p: Property[T], table : JTable) {
+        table.setModel(new PropertyTableModel())
+    }
+    
     def bind[T : Manifest](p : Property[T], textField : JTextField) {
         if (Manifest.classType(classOf[String]) == manifest)
             bindString(p.asInstanceOf[Property[String]], textField)
