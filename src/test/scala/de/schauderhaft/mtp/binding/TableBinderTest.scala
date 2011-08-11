@@ -39,5 +39,15 @@ class TableBinderTest extends FunSuite with ShouldMatchers {
         table.getModel().getValueAt(0,0) should be ("hello")
     }
     
-    
+    test("binding a n element Seq[String] Property to a JTable results in the elements being values of the cells of a single column"){
+        val property = new Property(Seq("hallo", "ollah", "hi"))
+        val table = new JTable
+        Binder.bind(property, table)
+
+        table.getModel().getColumnCount() should be (1)
+        table.getModel().getRowCount() should be (3)
+        table.getModel().getValueAt(0,0) should be ("hallo")
+        table.getModel().getValueAt(1,0) should be ("ollah")
+        table.getModel().getValueAt(2,0) should be ("hi")
+    }
 }
