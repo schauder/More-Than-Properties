@@ -8,7 +8,7 @@ import org.scalatest._
 import org.scalatest.matchers._
 import org.junit.runner.RunWith
 import org.scalatest.junit._
-
+import scala.collection.immutable._
 @RunWith(classOf[JUnitRunner])
 class TableBinderTest extends FunSuite with ShouldMatchers {
 
