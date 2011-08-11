@@ -10,8 +10,8 @@ import java.awt.event.ActionListener
 
 object Binder {
     
-    def bind[T : Manifest](p: Property[T], table : JTable) {
-        table.setModel(new PropertyTableModel())
+    def bind[T : Manifest](p: Property[Seq[T]], table : JTable) {
+        table.setModel(new PropertyTableModel(p))
     }
     
     def bind[T : Manifest](p : Property[T], textField : JTextField) {
