@@ -8,6 +8,7 @@ import org.junit.runner.RunWith
 import org.scalatest.junit._
 import scala.collection.immutable._
 import javax.swing.table.TableModel
+import de.schauderhaft.mtp.table._
 
 @RunWith(classOf[JUnitRunner])
 class TableBinderTest extends FunSuite with ShouldMatchers {
@@ -26,7 +27,7 @@ class TableBinderTest extends FunSuite with ShouldMatchers {
         val property = new Property(Seq[String]())
         val table = new JTable
         Binder.bind(property, table)
- 
+
         check(table.getModel, Seq())
     }
 
@@ -42,7 +43,16 @@ class TableBinderTest extends FunSuite with ShouldMatchers {
         val property = new Property(Seq("hallo", "ollah", "hi"))
         val table = new JTable
         Binder.bind(property, table)
-        
-        check(table.getModel(), Seq("hallo","ollah","hi"))
+
+        check(table.getModel(), Seq("hallo", "ollah", "hi"))
+    }
+
+    test("binding a Property with Columns uses the Columns") {
+        val property = new Property(Seq("hallo", "ollah", "hi")) with Columns
+        pending
+        val table = new JTable
+        Binder.bind(property, table)
+
+        check(table.getModel(), Seq("ollah", "hallo", "ih"))
     }
 }
