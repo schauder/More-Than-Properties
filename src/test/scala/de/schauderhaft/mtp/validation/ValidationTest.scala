@@ -25,11 +25,11 @@ class ValidationTest extends FunSuite with ShouldMatchers {
 
         property.valid() should be(false)
         property.validationMessages() should be(messages)
-    }
+    } 
 
     test("validate sees the initial value") {
         val property = new Property("testValue") with Validation[String] {
-            override def validate = List(value)
+            override def validate = List(value) 
         }
 
         property.valid() should be(false)

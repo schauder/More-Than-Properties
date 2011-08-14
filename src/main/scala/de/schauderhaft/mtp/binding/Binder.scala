@@ -99,7 +99,7 @@ object Binder {
     }
 
     def wrapProperty(p : Property[Int]) : Property[String] = {
-        val wrapper = new Property(p.value.toString)
+        val wrapper = new Property(p().toString)
         p.registerListener(value => {
             wrapper := value.toString
         })
