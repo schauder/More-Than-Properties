@@ -39,6 +39,9 @@ class PersonEditor extends ValidAggregator {
      */
     val lastname = new Name("").@@
 
+    
+//    val title = new Property("-- choose a title --") with ChooseFrom( choices = Seq("Mr.", "Mrs", "Dame", "Sir", "Whatever").@@
+//    
     /**
      * a Property of type Int with initial value of 20, a minimum value of 10 and a maximum value of 110.
      *
