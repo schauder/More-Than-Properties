@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.scalatest.junit._
 
 @RunWith(classOf[JUnitRunner])
-class BinderTest extends FunSuite with ShouldMatchers {
+class BinderTest extends FunSuite with ShouldMatchers with EDTContext {
 
     def setup(initValue : String) = {
         (Property(initValue), new JTextField())

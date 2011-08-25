@@ -13,7 +13,7 @@ import org.scalatest.junit._
  * Tests the binding of Int Properties to TextFields
  */
 @RunWith(classOf[JUnitRunner])
-class BinderIntTest extends FunSuite with ShouldMatchers {
+class BinderIntTest extends FunSuite with ShouldMatchers with EDTContext {
 
     def setup(initValue : Int) = {
         (Property(initValue), new JTextField())
